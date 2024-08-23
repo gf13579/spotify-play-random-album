@@ -75,4 +75,10 @@ async function playRandomAlbum() {
     }
 }
 
-playRandomAlbum();
+// playRandomAlbum();
+
+// Find the SVG element of the Spotify logo
+const svgElement = document.querySelector('svg[data-encore-id="logoSpotify"]');
+
+// Repurpose it as a button to trigger playRandomAlbum()
+const parentElement = svgElement.parentElement.addEventListener('click', playRandomAlbum);
