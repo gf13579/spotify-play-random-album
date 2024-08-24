@@ -1,12 +1,6 @@
 /**
  * This script interacts with the Spotify API to play a random album from the user's library.
  * It fetches the user's saved albums, selects one at random, and starts playback.
- * 
- * The script assumes it's running in the browser's JavaScript console when on open.spotify.com
- * 
- * After running the code once in the browser's JavaScript Console, repeat the call to playRandomAlbum() as required
- * 
- * todo: support queuing another x albums
  */
 
 const variables = encodeURIComponent(JSON.stringify({ 'filters': ['Albums'], 'order': null, 'textFilter': '', 'limit': 1000, 'offset': 0, 'flatten': false, 'expandedFolders': [], 'folderUri': null, 'includeFoldersWhenFlattening': true }));
@@ -22,6 +16,7 @@ function getAccessToken() {
 }
 
 async function playAlbum(albumUri, accessToken) {
+    albumUri = albumUri.startsWith('spotify:album:') ? albumUri : 'spotify:album:' + albumUri;
     try {
         const response = await fetch('https://api.spotify.com/v1/me/player/play', {
             method: 'PUT',
@@ -74,8 +69,6 @@ async function playRandomAlbum() {
         console.error('Error in playRandomAlbum:', error);
     }
 }
-
-// playRandomAlbum();
 
 // Find the SVG element of the Spotify logo
 const svgElement = document.querySelector('svg[data-encore-id="logoSpotify"]');

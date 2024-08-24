@@ -2,9 +2,9 @@
 
 This script repurposes the Spotify logo button on the Spotify website to play a random album from the your Spotify library. It fetches your saved albums, selects one at random, and starts playback.
  
-Run the code in the browser's JavaScript console in a tab with https://open.spotify.com/ open.
+Run the code in a tab with https://open.spotify.com/ open, using either the JavaScript console (Dev Tools) or a bookmarklet (code below).
  
-After running the code once in the browser's JavaScript Console, use the Spotify logo button to play a random album (or run `playRandomAlbum()` as required).
+After running the code, use the Spotify logo button to play a random album (or run `playRandomAlbum()` as required).
 
  ![Spotify button to trigger random album](spotify_button.png)
 
@@ -14,6 +14,10 @@ After running the code once in the browser's JavaScript Console, use the Spotify
 2. Open the Dev Tools (F12) and go to the JavaScript console
 3. Paste the contents of index.js in
 4. Click on the Spotify logo to trigger the random album feature
+
+## Limitations
+
+The code works if you're playing music in Spotify on a phone/tablet but not if you're using the web site itself to play audio.
 
 ## Bookmarklet
 
