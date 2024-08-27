@@ -17,7 +17,8 @@ After running the code, use the Spotify logo button to play a random album (or r
 
 ## Limitations
 
-The code works if you're playing music in Spotify on a phone/tablet but not if you're using the web site itself to play audio.
+- The code works if you're playing music in Spotify on a phone/tablet but not if you're using the web site itself to play audio.
+- If the web page is open long enough, the token expires - I currently don't support a refresh
 
 ## Bookmarklet
 
@@ -29,7 +30,7 @@ javascript:(function(){const t=encodeURIComponent(JSON.stringify({filters:["Albu
 
 ## To Do
 
-- Make the code work when playing music in the browser i.e. not via an external playback device
+- Handle expired token
 
 
 ## License
