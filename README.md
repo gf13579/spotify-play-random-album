@@ -18,20 +18,20 @@ After running the code, use the Spotify logo button to play a random album (or r
 ## Limitations
 
 - The code works if you're playing music in Spotify on a phone/tablet but not if you're using the web site itself to play audio.
-- If the web page is open long enough, the token expires - I currently don't support a refresh
 
 ## Bookmarklet
 
 To run as a bookmark in a tab with open.spotify.com open:   
 
 ```javascript
-javascript:(function(){const t=encodeURIComponent(JSON.stringify({filters:["Albums"],order:null,textFilter:"",limit:1e3,offset:0,flatten:!1,expandedFolders:[],folderUri:null,includeFoldersWhenFlattening:!0})),e=encodeURIComponent(JSON.stringify({persistedQuery:{version:1,sha256Hash:"e25e473b160efdd4ababa7d98aa909ce0e5ab9c49c81f6d040da077a09e34ab3"}}));async function n(){try{const n=JSON.parse(document.querySelector("#session").textContent).accessToken,r=await fetch("https://api-partner.spotify.com/pathfinder/v1/query?operationName=libraryV3&variables="+t+"&extensions="+e,{headers:{Authorization:"Bearer "+n}});if(!r.ok)throw new Error(`HTTP error! status: ${r.status}`);const a=(await r.json()).data.me.libraryV3.items;if(!a||0===a.length)throw new Error("No albums found in the library");const o=a[Math.floor(Math.random()*a.length)];await fetch("https://api.spotify.com/v1/me/player/play",{method:"PUT",headers:{Authorization:`Bearer ${n}`,"Content-Type":"application/json"},body:JSON.stringify({context_uri:o.item.data.uri})})}catch(t){console.error("Error:",t)}}n(),document.querySelector('svg[data-encore-id="logoSpotify"]').parentElement.addEventListener("click",n)})();
+javascript:void%20function(){async%20function%20a(){try{return%20response=await%20fetch(%22https://open.spotify.com/get_access_token%22),data=await%20response.json(),data.accessToken}catch(a){throw%20console.error(%22Failed%20to%20get%20access%20token:%22,a),new%20Error(%22Unable%20to%20retrieve%20access%20token%22)}}async%20function%20b(a,b){a=a.startsWith(%22spotify:album:%22)%3Fa:%22spotify:album:%22+a;try{const%20c=await%20fetch(%22https://api.spotify.com/v1/me/player/play%22,{method:%22PUT%22,headers:{Authorization:`Bearer%20${b}`,%22Content-Type%22:%22application/json%22},body:JSON.stringify({context_uri:a})});if(!c.ok)throw%20new%20Error(`HTTP%20error!%20status:%20${c.status}`);console.log(%22Album%20is%20now%20playing%22)}catch(a){throw%20console.error(%22Failed%20to%20play%20album:%22,a),a}}const%20c=encodeURIComponent(JSON.stringify({filters:[%22Albums%22],order:null,textFilter:%22%22,limit:1e3,offset:0,flatten:!1,expandedFolders:[],folderUri:null,includeFoldersWhenFlattening:!0})),d=encodeURIComponent(JSON.stringify({persistedQuery:{version:1,sha256Hash:%22e25e473b160efdd4ababa7d98aa909ce0e5ab9c49c81f6d040da077a09e34ab3%22}})),e=document.querySelector(%22svg[data-encore-id=\%22logoSpotify\%22]%22),f=e.parentElement.addEventListener(%22click%22,async%20function(){try{const%20e=await%20a(),f=await%20fetch(%22https://api-partner.spotify.com/pathfinder/v1/query%3FoperationName=libraryV3%26variables=%22+c+%22%26extensions=%22+d,{headers:{Authorization:%22Bearer%20%22+e}});if(!f.ok)throw%20new%20Error(`HTTP%20error!%20status:%20${f.status}`);const%20g=await%20f.json(),h=g.data.me.libraryV3.items;if(!h||0===h.length)throw%20new%20Error(%22No%20albums%20found%20in%20the%20library%22);console.log(`albums.length%20is%20${h.length}`);const%20i=h[Math.floor(Math.random()*h.length)];console.log(`Picked%20random%20album:%20${i.item.data.name}`),await%20b(i.item.data.uri,e)}catch(a){console.error(%22Error%20in%20playRandomAlbum:%22,a)}})}();
 ```
+
+Made using https://chriszarate.github.io/bookmarkleter/.
 
 ## To Do
 
-- Handle expired token
-
+- Maybe add a button that adds 5 random albums to the queue
 
 ## License
 

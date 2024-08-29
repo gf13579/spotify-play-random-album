@@ -6,9 +6,12 @@
 const variables = encodeURIComponent(JSON.stringify({ 'filters': ['Albums'], 'order': null, 'textFilter': '', 'limit': 1000, 'offset': 0, 'flatten': false, 'expandedFolders': [], 'folderUri': null, 'includeFoldersWhenFlattening': true }));
 const extensions = encodeURIComponent(JSON.stringify({ 'persistedQuery': { 'version': 1, 'sha256Hash': 'e25e473b160efdd4ababa7d98aa909ce0e5ab9c49c81f6d040da077a09e34ab3' } }));
 
-function getAccessToken() {
+async function getAccessToken() {
     try {
-        return JSON.parse(document.querySelector('#session').textContent).accessToken;
+        // return JSON.parse(document.querySelector('#session').textContent).accessToken;
+        response = await fetch('https://open.spotify.com/get_access_token');
+        data = await response.json();
+        return data.accessToken;
     } catch (error) {
         console.error('Failed to get access token:', error);
         throw new Error('Unable to retrieve access token');
@@ -42,7 +45,7 @@ async function playAlbum(albumUri, accessToken) {
 
 async function playRandomAlbum() {
     try {
-        const accessToken = getAccessToken();
+        const accessToken = await getAccessToken();
         const response = await fetch('https://api-partner.spotify.com/pathfinder/v1/query?operationName=libraryV3&variables=' + variables + '&extensions=' + extensions, {
             headers: {
                 'Authorization': 'Bearer ' + accessToken
