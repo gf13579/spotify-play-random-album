@@ -1,5 +1,7 @@
 # spotify-play-random-album
 
+**Archiving the repo on 26-Mar-2026 as the code no longer works and it's too annoying to fix. Setup an app on developer.spotify.com instead and use a basic python script with spotipy to achieve the same thing - shuffling albums**
+
 This script repurposes the Spotify logo button on the Spotify website to play a random album from the your Spotify library. It fetches your saved albums, selects one at random, and starts playback.
  
 Run the code in a tab with https://open.spotify.com/ open, using either the JavaScript console (Dev Tools) or a bookmarklet (code below).
